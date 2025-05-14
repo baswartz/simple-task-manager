@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
       borderRadius: 6,
       borderWidth: 1,
       borderColor: '#eee',
+      width: '100%',
     },
     completedTask: {
       opacity: 0.5, // More transparent if completed

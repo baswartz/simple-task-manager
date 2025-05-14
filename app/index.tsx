@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Modal, TextInput, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Button from '@/components/Button';
 import Task from '@/components/Task';
 
@@ -34,11 +36,17 @@ export default function Index() {
       )
     );
   };
+
+  {/* Delete tasks */}
+  const deleteTask = (id: number) => {
+    setTasks(tasks => tasks.filter(task => task.id !== id));
+  };
+  
   
   return (
     <View style={styles.container}>
       {/* List of tasks */}
-      <FlatList
+      <SwipeListView
         data={tasks}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
@@ -48,9 +56,23 @@ export default function Index() {
             onToggleCompleted={() => toggleTaskCompleted(item.id)}
           />
         )}
-        ListEmptyComponent={<Text style={styles.empty}>No tasks yet.</Text>}
-        style={styles.list}
-        contentContainerStyle={tasks.length === 0 ? { flex: 1, justifyContent: 'center', alignItems: 'center' } : undefined }
+        renderHiddenItem={({ item }) => (
+          <View style={styles.rowBack}>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => deleteTask(item.id)}
+            >
+              <FontAwesome name="trash" size={24} color="#fff" />
+            </TouchableOpacity>  
+          </View>
+        )}
+        rightOpenValue={-75}
+        disableRightSwipe
+        style={{ width: '100%' }}
+        contentContainerStyle={[
+          tasks.length === 0 && { flex: 1, justifyContent: 'center', alignItems: 'center' },
+          { paddingHorizontal: 20 }
+        ]}
       />
 
       {/* Add Task Button */}
@@ -160,4 +182,23 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
   },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingRight: 15,
+    borderRadius: 6,
+    marginVertical: 4,
+  },
+  deleteButton: {
+    backgroundColor: '#e74c3c',
+    borderRadius: 6,
+    width: 60,
+    height: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  
 });
