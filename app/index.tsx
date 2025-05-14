@@ -3,9 +3,15 @@ import { View, Text, FlatList, Modal, TextInput, StyleSheet } from 'react-native
 import Button from '@/components/Button';
 import Task from '@/components/Task';
 
+type TaskType = {
+  id: number;
+  description: string;
+  completed: boolean;
+};
+
 export default function Index() {
   // Initialize states for task list, whether add task pop-up shows, and input text
-  const [tasks, setTasks] = useState<{ id: number; description: string }[]>([]);
+  const [tasks, setTasks] = useState<TaskType[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('')
   const [nextId, setNextId] = useState(0);
@@ -13,12 +19,21 @@ export default function Index() {
   const addTask = () => {
     // If the task isn't empty, add to task list
     if (inputValue.trim()) {
-      setTasks([...tasks, { id: nextId, description: inputValue }]);
+      setTasks([...tasks, { id: nextId, description: inputValue, completed: false }]);
       setNextId(nextId + 1);
       setInputValue('');
       setModalVisible(false);
     }
   }
+
+  {/* Nark task as complete */}
+  const toggleTaskCompleted = (id: number) => {
+    setTasks(tasks =>
+      tasks.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
   
   return (
     <View style={styles.container}>
@@ -26,7 +41,13 @@ export default function Index() {
       <FlatList
         data={tasks}
         keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => <Task description={item.description} />}
+        renderItem={({ item }) => (
+          <Task 
+            description={item.description} 
+            completed={item.completed}
+            onToggleCompleted={() => toggleTaskCompleted(item.id)}
+          />
+        )}
         ListEmptyComponent={<Text style={styles.empty}>No tasks yet.</Text>}
         style={styles.list}
         contentContainerStyle={tasks.length === 0 ? { flex: 1, justifyContent: 'center', alignItems: 'center' } : undefined }
