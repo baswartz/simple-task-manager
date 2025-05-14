@@ -4,23 +4,36 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 type Props = {
   label: string;
   theme?: 'primary';
+  style?: object;
+  onPress?: () => void;
+  icon?: React.ComponentProps<typeof FontAwesome>['name'];
 };
 
-export default function Button({ label }: Props) {
-    return (
-      <View
-        style={[
-          styles.buttonContainer,
-          { borderWidth: 4, borderColor: '#D3D3D3', borderRadius: 18 },
-        ]}>
-        <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
-          onPress={() => alert('You pressed a button.')}>
-          <FontAwesome name="plus" size={18} color="#25292e" style={styles.buttonIcon} />
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
-        </Pressable>
-      </View>
-    );
+export default function Button({ label, style, onPress, icon }: Props) {
+  return (
+    <View
+      style={[
+        styles.buttonContainer,
+        { borderWidth: 4, borderColor: '#D3D3D3', borderRadius: 18 },
+        style,
+      ]}
+    >
+      <Pressable
+        style={[styles.button, { backgroundColor: '#fff' }]}
+        onPress={onPress}
+      >
+        {icon && (
+         <FontAwesome 
+            name={icon}
+            size={18}
+            color="#25292e"
+            style={styles.buttonIcon}
+         />
+        )}
+        <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+      </Pressable>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
