@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
       width: '100%',
     },
     completedTask: {
-      opacity: 0.5, // More transparent if completed
+        backgroundColor: '#f2f2f2', // More transparent if completed
     },
     checkbox: {
       marginRight: 12,
