@@ -18,10 +18,10 @@ Add, complete, and delete tasks with smooth animations and an intuitive mobile U
 
 ## Screenshots
 
-![Add Task Modal](./screenshots/add-task-modal.png)
-![Swipe to Delete](./screenshots/swipe-to-delete.png)
-![No Tasks State](./screenshots/no-tasks.png)
-![Mark Completed](./screenshots/mark-completed.png)
+![Add Task Modal](./screenshots/add-task-modal.PNG)
+![Swipe to Delete](./screenshots/swipe-to-delete.PNG)
+![No Tasks State](./screenshots/no-tasks.PNG)
+![Mark Completed](./screenshots/mark-completed.PNG)
 
 ---
 
