@@ -1,15 +1,16 @@
+// Reusable button component with optional icon and customizable text/icon color.
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 type Props = {
   label: string;
-  theme?: 'primary';
   style?: object;
   onPress?: () => void;
   icon?: React.ComponentProps<typeof FontAwesome>['name'];
+  textColor?: string;
 };
 
-export default function Button({ label, style, onPress, icon }: Props) {
+export default function Button({ label, style, onPress, icon, textColor = '#25292e' }: Props) {
   return (
     <View
       style={[
@@ -19,18 +20,18 @@ export default function Button({ label, style, onPress, icon }: Props) {
       ]}
     >
       <Pressable
-        style={[styles.button, { backgroundColor: '#fff' }]}
+        style={[styles.button, style]}
         onPress={onPress}
       >
         {icon && (
          <FontAwesome 
             name={icon}
             size={18}
-            color="#25292e"
+            color={textColor}
             style={styles.buttonIcon}
          />
         )}
-        <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+        <Text style={[styles.buttonLabel, { color: textColor }]}>{label}</Text>
       </Pressable>
     </View>
   );

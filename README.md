@@ -1,54 +1,92 @@
-<<<<<<< HEAD
-# Welcome to your Expo app 👋
+# Task Manager
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple, modern task management app built with **React Native** and **Expo**.  
+Add, complete, and delete tasks with smooth animations and an intuitive mobile UI.
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- **Add Tasks:** Quickly add new tasks via a modal popup.
+- **Complete Tasks:** Tap the checkbox to mark tasks as complete (with a bounce animation).
+- **Delete Tasks:** Swipe left on a task to reveal the delete button, then tap to remove (with fade-out animation).
+- **Animated UI:** Tasks fade in when added and fade out when deleted for a polished user experience.
+- **Responsive Design:** Works on both iOS and Android devices.
+- **Accessible:** Large touch targets and clear color contrast.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Screenshots
 
-In the output, you'll find options to open the app in a
+![Add Task Modal](./screenshots/add-task-modal.png)
+![Swipe to Delete](./screenshots/swipe-to-delete.png)
+![No Tasks State](./screenshots/no-tasks.png)
+![Mark Completed](./screenshots/mark-completed.png)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Getting Started
 
-## Get a fresh project
+### 1. **Clone the Repository**
+- git clone https://github.com/baswartz/simple-task-manager.git
+- cd task-manager
 
-When you're ready, run:
+### 2. **Install Dependencies**
+- npm install
 
-```bash
-npm run reset-project
-```
+### 3. **Start the Expo Project**
+- npx expo start
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 4. **Run on Your Device**
+- **iOS / Android:**  
+  Install [Expo Go](https://expo.dev/client) from the App Store or Google Play.
+- **Scan the QR code** in your terminal or browser with Expo Go.
+- Or, on computer use web browser option through Expo
+- The app will open instantly!
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## Tech Stack
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- **React Native** (with Expo)
+- **expo-router** for navigation
+- **react-native-reanimated** for smooth animations
+- **react-native-swipe-list-view** for swipe-to-delete functionality
+- **@expo/vector-icons** for icons
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 🧑‍💻 Code Quality
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-=======
-# simple-task-manager
->>>>>>> 74f0bf9cb96aefdf17bdc768ffbd591fc9e47b77
+- **TypeScript** throughout for type safety.
+- **Reusable Components:** Task, Button, and Modal are modular and easy to maintain.
+
+---
+
+## How to Test
+
+1. **Add a Task:** Tap "Add a task", enter a description, and tap "Add Task".
+2. **Complete a Task:** Tap the checkbox next to any task.
+3. **Delete a Task:** Swipe left on a task and tap the trash can.
+4. **Empty State:** Delete all tasks to see the "No tasks yet." message.
+
+---
+
+## Reviewer Notes
+
+- All features work in Expo Go; no custom native modules required.
+- No setup beyond `npm install` and `npx expo start`.
+- For any questions, please contact [baswartz@umich.edu].
+
+---
+
+## License
+
+MIT
+
+---
+
+**Thank you for reviewing!**
+
+
+

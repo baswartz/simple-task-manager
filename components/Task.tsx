@@ -1,4 +1,5 @@
-// components/Task.tsx
+// Task component: displays a single task with animations for fade-in, 
+// completion (bounce), and fade-out on delete.
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
@@ -20,13 +21,14 @@ type TaskProps = {
 
 // Create task component with description
 export default function Task({ description, completed, onToggleCompleted, onFadeInComplete }: TaskProps) {
+    const opacity = useSharedValue(0); // Controls fade-in animation
     // Fade-in effect for added task
-    const opacity = useSharedValue(0);
     useEffect(() => {
         opacity.value = withTiming(
           1,
           { duration: 500 },
           (isFinished) => {
+            // When fade-in is done, notify parent to show delete button
             if (isFinished && onFadeInComplete) {
               runOnJS(onFadeInComplete)();
             }
@@ -34,8 +36,9 @@ export default function Task({ description, completed, onToggleCompleted, onFade
         );
       }, []);
     
-    // Bounce effect when completed
-    const scale = useSharedValue(1);
+    
+    const scale = useSharedValue(1); // Controls bounce animation
+    // Bounce effect for checkbox when marked as completed
     useEffect(() => {
         if (completed) {
             scale.value = withSpring(1.2, { damping: 2 }, () => {

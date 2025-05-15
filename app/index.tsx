@@ -1,10 +1,10 @@
+// Main screen for the Task Manager app. Handles task list state, modal, and swipe-to-delete.
 import React, { useState } from 'react';
 import { View, Text, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Button from '@/components/Button';
 import Task from '@/components/Task';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 type TaskType = {
   id: number;
@@ -14,15 +14,15 @@ type TaskType = {
 
 export default function Index() {
   // Initialize states for task list, whether add task pop-up shows, and input text
-  const [tasks, setTasks] = useState<TaskType[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('')
-  const [nextId, setNextId] = useState(0);
-  const [fadeInDone, setFadeInDone] = useState<{ [id: number]: boolean }>({});
+  const [tasks, setTasks] = useState<TaskType[]>([]); // List of all tasks
+  const [modalVisible, setModalVisible] = useState(false); // Controls whether modal shows
+  const [inputValue, setInputValue] = useState('') // Input value for new task
+  const [nextId, setNextId] = useState(0); // Auto-incrementing task ID
+  const [fadeInDone, setFadeInDone] = useState<{ [id: number]: boolean }>({}); // Tracks 
+  // which tasks have finished fade-in
 
-  
+  // Adds a new task to the list
   const addTask = () => {
-    // If the task isn't empty, add to task list
     if (inputValue.trim()) {
       setTasks([...tasks, { id: nextId, description: inputValue, completed: false }]);
       setNextId(nextId + 1);
@@ -31,7 +31,7 @@ export default function Index() {
     }
   }
 
-  {/* Nark task as complete */}
+  // Toggles a task's completion status
   const toggleTaskCompleted = (id: number) => {
     setTasks(tasks =>
       tasks.map(task =>
@@ -40,7 +40,7 @@ export default function Index() {
     );
   };
 
-  {/* Delete tasks */}
+  // Deletes a task from the list
   const deleteTask = (id: number) => {
     setTasks(tasks => tasks.filter(task => task.id !== id));
   };
@@ -62,6 +62,7 @@ export default function Index() {
             }
           />
         )}
+        // Only show the delete button after the fade-in animation completes
         renderHiddenItem={({ item }) => (
           <View style={styles.rowBack}>
             {fadeInDone[item.id] && (
@@ -81,6 +82,9 @@ export default function Index() {
           tasks.length === 0 && { flex: 1, justifyContent: 'center', alignItems: 'center' },
           { paddingHorizontal: 20 }
         ]}
+        ListEmptyComponent={
+          <Text style={styles.empty}>No tasks yet.</Text>
+        }
       />
 
       {/* Add Task Button */}
@@ -112,14 +116,16 @@ export default function Index() {
               <Button
                 label="Add Task"
                 onPress={addTask}
-                style={styles.modalButton}
+                style={[styles.modalButton, { backgroundColor: '#4caf50' }]}
                 icon="plus"
+                textColor="#fff"
               />
               <Button
                 label="Cancel"
                 onPress={() => setModalVisible(false)}
-                style={styles.modalButton}
+                style={[styles.modalButton, { backgroundColor: '#e74c3c' }]}
                 icon="times"
+                textColor="#fff"
               />
             </View>
           </View>
