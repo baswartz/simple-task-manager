@@ -64,7 +64,7 @@ Add, complete, and delete tasks with smooth animations and an intuitive mobile U
 
 ---
 
-## 🧑‍💻 Code Quality
+## Code Quality
 
 - **TypeScript** throughout for type safety.
 - **Reusable Components:** Task, Button, and Modal are modular and easy to maintain.
