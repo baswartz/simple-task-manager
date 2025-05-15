@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { View, Text, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import Button from '@/components/Button';
 import Task from '@/components/Task';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 type TaskType = {
   id: number;
@@ -17,6 +18,8 @@ export default function Index() {
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('')
   const [nextId, setNextId] = useState(0);
+  const [fadeInDone, setFadeInDone] = useState<{ [id: number]: boolean }>({});
+
   
   const addTask = () => {
     // If the task isn't empty, add to task list
@@ -50,20 +53,25 @@ export default function Index() {
         data={tasks}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <Task 
-            description={item.description} 
+          <Task
+            description={item.description}
             completed={item.completed}
             onToggleCompleted={() => toggleTaskCompleted(item.id)}
+            onFadeInComplete={() =>
+              setFadeInDone(prev => ({ ...prev, [item.id]: true }))
+            }
           />
         )}
         renderHiddenItem={({ item }) => (
           <View style={styles.rowBack}>
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={() => deleteTask(item.id)}
-            >
-              <FontAwesome name="trash" size={24} color="#fff" />
-            </TouchableOpacity>  
+            {fadeInDone[item.id] && (
+                <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => deleteTask(item.id)}
+              >
+                <FontAwesome name="trash" size={24} color="#fff" />
+              </TouchableOpacity>
+            )}
           </View>
         )}
         rightOpenValue={-75}
